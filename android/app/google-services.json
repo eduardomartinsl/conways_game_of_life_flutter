@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "125355302453",
+    "project_id": "conways-game-of-life-simulator",
+    "storage_bucket": "conways-game-of-life-simulator.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:125355302453:android:14d97b1f48ab407e5d1b7c",
+        "android_client_info": {
+          "package_name": "com.martins.eduardo.conways_game_of_life"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "125355302453-93vr0tdpngja55i50dmr5m1isbq6ah3u.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.martins.eduardo.conways_game_of_life",
+            "certificate_hash": "fb83ab8752b21750516d3b032981e320b169b9b6"
+          }
+        },
+        {
+          "client_id": "125355302453-pe4d46a7vk4ptc4j09fh7tkoc3v79oct.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAj0MNW5Rtch4i136EuzkM9HhOEffoHabQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "125355302453-pe4d46a7vk4ptc4j09fh7tkoc3v79oct.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
