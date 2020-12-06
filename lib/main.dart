@@ -1,6 +1,5 @@
-import 'package:conways_game_of_life/pages/board_page.dart';
+import 'package:conways_game_of_life/pages/BoardPage.dart';
 import 'package:flutter/material.dart';
-import './models/Cell.dart';
 
 void main() => runApp(MainPage());
 
