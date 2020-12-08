@@ -1,13 +1,12 @@
-import 'package:conways_game_of_life/models/CellPosition.dart';
+import 'package:conways_game_of_life/models/Cell.dart';
 import 'package:flutter/material.dart';
 
 class CellWidget extends StatelessWidget {
+  final Cell cell;
 
-  final CellPosition position;
   final Function() callBack;
-  final Color color;
 
-  const CellWidget({Key key, this.position, this.callBack, this.color}) : super(key: key);
+  const CellWidget({Key key, this.cell, this.callBack}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,8 +14,9 @@ class CellWidget extends StatelessWidget {
       onTap: () => callBack(),
       child: Container(
         decoration: BoxDecoration(
-            color:  color ,
-            border: Border.all(color: Colors.black12)),
+          color: cell.color,
+          border: Border.all(color: Colors.black12),
+        ),
       ),
     );
   }

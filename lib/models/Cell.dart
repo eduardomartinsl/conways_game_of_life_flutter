@@ -1,14 +1,8 @@
-class Cell{
+import 'dart:ui';
 
-  bool isAlive;
+class Cell {
+  final Color color;
 
-  int row;
-  int column;
-
-  Cell(this.row, this.column, [this.isAlive = false]);
-
-  bool changeState(){
-    isAlive = !isAlive;
-  }
+  Cell({this.color});
 
 }
