@@ -18,41 +18,40 @@ class _BoardWidgetState extends State<BoardWidget> {
 
   @override
   Widget build(BuildContext context) {
-
     isAlive = List.generate(widget.rows, (i) {
       return List.generate(widget.columns, (j) {
         return true;
       });
-    });;
+    });
 
     return GridView.builder(
       physics: NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: widget.columns),
+      //TODO: Entender o motivo do problema com a variável position (Que ultrapassa
+      //TODO: a quantidade de células criadas
       itemBuilder: (context, position) {
 
         int rowNumber = (position / widget.columns).floor();
         int columnNumber = (position % widget.columns);
 
-        isAlive[rowNumber][columnNumber] = true;
+        print(" row:$rowNumber,  column:$columnNumber ${isAlive[rowNumber][columnNumber]}");
 
         return CellWidget(
-          cell: Cell(
-              color: isAlive[rowNumber][columnNumber]
-                  ? Colors.white
-                  : Colors.black87),
+          cell: Cell(color: Colors.white70),
           callBack: () => {
-            setState(() => {
-              changeState(rowNumber, columnNumber)
-            },
-            )},
+            setState(
+              () => {
+                // changeState(rowNumber, columnNumber)
+              },
+            )
+          },
         );
       },
     );
   }
 
   bool changeState(int rowNumber, int columnNumber) {
-    return isAlive[rowNumber][columnNumber] =
-              !isAlive[rowNumber][columnNumber];
+    return isAlive[rowNumber][columnNumber] = !isAlive[rowNumber][columnNumber];
   }
 }

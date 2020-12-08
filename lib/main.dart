@@ -1,21 +1,32 @@
-import 'package:conways_game_of_life/pages/BoardPage.dart';
+import 'package:async_redux/async_redux.dart';
+import 'package:conways_game_of_life/conectors/BoardPageConnector.dart';
 import 'package:flutter/material.dart';
 
-void main() => runApp(MainPage());
+import 'models/Board.dart';
 
-int rowCount = 30;
-int columnCount = 20;
+Store<Board> boardStore;
+
+int rowSize = 30;
+int columnSize = 20;
+
+void main() {
+  boardStore = Store<Board>(initialState: Board());
+  runApp(MainPage());
+}
 
 class MainPage extends StatelessWidget {
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Conway`s Game of Life Sim',
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-    ),
-    home: BoardPage(rowCount, columnCount),
-    );
-  }
+  Widget build(BuildContext context) => StoreProvider<Board>(
+        store: boardStore,
+        child: MaterialApp(
+            title: 'Conway`s Game of Life Sim',
+            debugShowCheckedModeBanner: false,
+            theme: ThemeData(
+              primarySwatch: Colors.blue,
+            ),
+            home: BoardPageConnector(
+              rowSize: rowSize,
+              columnSize: columnSize,
+            )),
+      );
 }
