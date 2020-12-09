@@ -5,8 +5,8 @@ import 'package:flutter/cupertino.dart';
 class BoardPageViewModel extends Vm {
 
   final Board boardState;
-  final VoidCallback onIncrement;
+  final VoidCallback onChangeState;
 
-  BoardPageViewModel({this.boardState, this.onIncrement});
+  BoardPageViewModel({this.boardState, this.onChangeState});
 
 }

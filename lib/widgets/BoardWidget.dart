@@ -13,45 +13,49 @@ class BoardWidget extends StatefulWidget {
 }
 
 class _BoardWidgetState extends State<BoardWidget> {
-  //todo inicializar matriz de uma maneira melhor
   List<List<bool>> isAlive = List<List<bool>>();
 
   @override
-  Widget build(BuildContext context) {
+  void initState() {
+    super.initState();
+
     isAlive = List.generate(widget.rows, (i) {
       return List.generate(widget.columns, (j) {
-        return true;
+        return false;
       });
     });
+  }
+
+  @override
+  Widget build(BuildContext context) {
 
     return GridView.builder(
       physics: NeverScrollableScrollPhysics(),
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: widget.columns),
-      //TODO: Entender o motivo do problema com a variável position (Que ultrapassa
-      //TODO: a quantidade de células criadas
+      itemCount: (widget.columns * widget.rows),
       itemBuilder: (context, position) {
-
         int rowNumber = (position / widget.columns).floor();
         int columnNumber = (position % widget.columns);
 
-        print(" row:$rowNumber,  column:$columnNumber ${isAlive[rowNumber][columnNumber]}");
+        print(
+            " row:$rowNumber, column:$columnNumber ${isAlive[rowNumber][columnNumber]}");
 
         return CellWidget(
-          cell: Cell(color: Colors.white70),
+          cell: Cell(
+              color: isAlive[rowNumber][columnNumber]
+                  ? Colors.black87
+                  : Colors.white70),
           callBack: () => {
             setState(
-              () => {
-                // changeState(rowNumber, columnNumber)
+              () {
+                return isAlive[rowNumber][columnNumber] =
+                    !isAlive[rowNumber][columnNumber];
               },
             )
           },
         );
       },
     );
-  }
-
-  bool changeState(int rowNumber, int columnNumber) {
-    return isAlive[rowNumber][columnNumber] = !isAlive[rowNumber][columnNumber];
   }
 }

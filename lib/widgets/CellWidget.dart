@@ -6,6 +6,17 @@ class CellWidget extends StatelessWidget {
 
   final Function() callBack;
 
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      super == other &&
+          other is CellWidget &&
+          runtimeType == other.runtimeType &&
+          cell == other.cell;
+
+  @override
+  int get hashCode => super.hashCode ^ cell.hashCode ^ callBack.hashCode;
+
   const CellWidget({Key key, this.cell, this.callBack}) : super(key: key);
 
   @override
