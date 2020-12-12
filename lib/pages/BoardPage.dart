@@ -1,4 +1,3 @@
-import 'package:conways_game_of_life/widgets/BoardWidget.dart';
 import 'package:flutter/material.dart';
 
 class BoardPage extends StatelessWidget {
@@ -13,10 +12,10 @@ class BoardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(title: Text("Conway`s Game of Life Sim")),
-      body: BoardWidget(
-        columns: columnCount,
-        rows: rowCount,
-      ),
+      // body: BoardWidget(
+      //   columns: columnCount,
+      //   rows: rowCount,
+      // ),
     );
   }
 }

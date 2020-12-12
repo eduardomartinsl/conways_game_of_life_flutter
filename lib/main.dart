@@ -1,32 +1,72 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:conways_game_of_life/conectors/BoardPageConnector.dart';
 import 'package:flutter/material.dart';
 
 import 'models/Board.dart';
 
 Store<Board> boardStore;
 
-int rowSize = 30;
-int columnSize = 20;
+int numberOfRows = 30;
+int numberOfColumns = 20;
+double boardWidth = 500;
+double boardHeight = 500;
+List<List<bool>> isAlive;
 
 void main() {
-  boardStore = Store<Board>(initialState: Board());
-  runApp(MainPage());
+  isAlive = new List<List<bool>>(numberOfRows);
+  boardStore = Store<Board>(
+      initialState: Board(
+    width: boardWidth,
+    height: boardHeight,
+    numberOfColumns: numberOfColumns,
+    numberOfRows: numberOfRows,
+  ));
+  runApp(NewMainPage());
 }
 
-class MainPage extends StatelessWidget {
+class NewMainPage extends StatefulWidget {
   @override
-  Widget build(BuildContext context) => StoreProvider<Board>(
-        store: boardStore,
-        child: MaterialApp(
-            title: 'Conway`s Game of Life Sim',
-            debugShowCheckedModeBanner: false,
-            theme: ThemeData(
-              primarySwatch: Colors.blue,
+  _NewMainPageState createState() => _NewMainPageState();
+}
+
+class _NewMainPageState extends State<NewMainPage> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text("Conway`s Game of Life Sim"),
+          ),
+          body: Container(
+            constraints: BoxConstraints.expand(),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  child: Listener(
+                    onPointerDown: (PointerEvent e) => {
+
+                    },
+                    //todo: dispose no listener ao sair da tela
+                    child: SizedBox(
+                      width: boardWidth,
+                      height: boardHeight,
+                      child: CustomPaint(
+                        painter: Board(
+                          numberOfRows: numberOfRows,
+                          numberOfColumns: numberOfColumns,
+                          width: boardWidth,
+                          height: boardHeight,
+                        ),
+                      ),
+                    ),
+                  ),
+                  // ),
+                )
+              ],
             ),
-            home: BoardPageConnector(
-              rowSize: rowSize,
-              columnSize: columnSize,
-            )),
-      );
+          ),
+        ));
+  }
 }
