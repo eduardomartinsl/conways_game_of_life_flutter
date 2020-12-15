@@ -1,25 +1,18 @@
-import 'package:async_redux/async_redux.dart';
 import 'package:flutter/material.dart';
 
-import 'models/Board.dart';
-
-Store<Board> boardStore;
+import 'customPainters/BoardCustomPainter.dart';
 
 int numberOfRows = 30;
-int numberOfColumns = 20;
+int numberOfColumns = 30;
 double boardWidth = 500;
 double boardHeight = 500;
-List<List<bool>> isAlive;
+double cellWidth;
+double cellHeight;
 
 void main() {
-  isAlive = new List<List<bool>>(numberOfRows);
-  boardStore = Store<Board>(
-      initialState: Board(
-    width: boardWidth,
-    height: boardHeight,
-    numberOfColumns: numberOfColumns,
-    numberOfRows: numberOfRows,
-  ));
+  cellWidth = boardWidth / numberOfRows;
+  cellHeight = boardHeight / numberOfColumns;
+
   runApp(NewMainPage());
 }
 
@@ -43,30 +36,84 @@ class _NewMainPageState extends State<NewMainPage> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  child: Listener(
-                    onPointerDown: (PointerEvent e) => {
-
-                    },
-                    //todo: dispose no listener ao sair da tela
-                    child: SizedBox(
-                      width: boardWidth,
-                      height: boardHeight,
-                      child: CustomPaint(
-                        painter: Board(
-                          numberOfRows: numberOfRows,
-                          numberOfColumns: numberOfColumns,
-                          width: boardWidth,
-                          height: boardHeight,
-                        ),
-                      ),
-                    ),
-                  ),
-                  // ),
+                Board(
+                  numberOfRows: numberOfRows,
+                  numberOfColumns: numberOfColumns,
+                  boardWidth: boardWidth,
+                  boardHeight: boardHeight,
+                  cellWidth: cellWidth,
+                  cellHeight: cellHeight,
                 )
               ],
             ),
           ),
         ));
+  }
+}
+
+class Board extends StatefulWidget {
+  final int numberOfRows;
+  final int numberOfColumns;
+  final double boardWidth;
+  final double boardHeight;
+  final List<List<bool>> isAliveMatrix;
+  final double cellWidth;
+  final double cellHeight;
+
+  const Board({
+    Key key,
+    this.numberOfRows,
+    this.numberOfColumns,
+    this.boardWidth,
+    this.boardHeight,
+    this.isAliveMatrix,
+    this.cellWidth,
+    this.cellHeight,
+  }) : super(key: key);
+
+  @override
+  _BoardState createState() => _BoardState();
+}
+
+class _BoardState extends State<Board> {
+  List<List<bool>> isAliveMatrix;
+
+  void cellClick(PointerEvent e) {
+    setState(() {
+      isAliveMatrix[e.localPosition.dx ~/ cellHeight]
+              [e.localPosition.dy ~/ cellHeight] =
+          !isAliveMatrix[e.localPosition.dx ~/ cellWidth]
+              [e.localPosition.dy ~/ cellHeight];
+    });
+  }
+
+  @override
+  void initState() {
+    isAliveMatrix = List.generate(numberOfRows, (i) {
+      return List.generate(numberOfColumns, (j) {
+        return false;
+      });
+    });
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Listener(
+      onPointerDown: cellClick,
+      onPointerMove: cellClick,
+      child: SizedBox(
+        width: boardWidth,
+        height: boardHeight,
+        child: CustomPaint(
+          painter: BoardCustomPainter(
+              numberOfRows: numberOfRows,
+              numberOfColumns: numberOfColumns,
+              cellHeight: cellHeight,
+              cellWidth: cellWidth,
+              isAliveMatrix: isAliveMatrix),
+        ),
+      ),
+    );
   }
 }

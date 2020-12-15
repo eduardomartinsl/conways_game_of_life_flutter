@@ -1,28 +1,20 @@
 import 'package:flutter/material.dart';
 
-class Board extends CustomPainter {
+class BoardCustomPainter extends CustomPainter {
   //
   double cellWidth;
   double cellHeight;
   final int numberOfRows;
   final int numberOfColumns;
-  List<List<bool>> isAlive;
+  List<List<bool>> isAliveMatrix;
 
-  Board({
+  BoardCustomPainter({
     this.numberOfRows,
     this.numberOfColumns,
-    double width,
-    double height,
-  }) {
-    cellWidth = width / numberOfRows;
-    cellHeight = height / numberOfColumns;
-
-    isAlive = List.generate(numberOfRows, (i) {
-      return List.generate(numberOfColumns, (j) {
-        return false;
-      });
-    });
-  }
+    this.cellWidth,
+    this.cellHeight,
+    this.isAliveMatrix
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -32,12 +24,12 @@ class Board extends CustomPainter {
             cellWidth * numberOfRows,
             cellHeight * numberOfColumns,
           ),
-      Paint()..color = Colors.blue,
+      Paint()..color = Colors.white,
     );
 
     for (var row = 0; row < numberOfRows; row++) {
       for (var column = 0; column < numberOfColumns; column++) {
-        if (isAlive[row][column]) {
+        if (isAliveMatrix[row][column]) {
           renderCell(
             canvas,
             row * cellHeight,
@@ -48,11 +40,6 @@ class Board extends CustomPainter {
         }
       }
     }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
   }
 
   void renderCell(
@@ -66,5 +53,11 @@ class Board extends CustomPainter {
       Offset(dx, dy) & Size(cellWidth, cellHeight),
       Paint()..color = Colors.black45,
     );
+  }
+
+  @override
+  bool shouldRepaint(BoardCustomPainter oldDelegate) {
+    print(isAliveMatrix[0][0]);
+    return true;
   }
 }

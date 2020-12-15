@@ -1,6 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:conways_game_of_life/factories/BoardFactory.dart';
-import 'package:conways_game_of_life/models/Board.dart';
+import 'package:conways_game_of_life/customPainters/BoardCustomPainter.dart';
 import 'package:conways_game_of_life/pages/BoardPage.dart';
 import 'package:conways_game_of_life/viewModels/BoardPageViewModel.dart';
 import 'package:flutter/foundation.dart';
@@ -11,7 +11,7 @@ class BoardPageConnector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<Board, BoardPageViewModel>(
+    return StoreConnector<BoardCustomPainter, BoardPageViewModel>(
       vm: BoardFactory(this),
       builder: (BuildContext context, BoardPageViewModel vm) => BoardPage(
 
