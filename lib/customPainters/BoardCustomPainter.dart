@@ -57,7 +57,6 @@ class BoardCustomPainter extends CustomPainter {
 
   @override
   bool shouldRepaint(BoardCustomPainter oldDelegate) {
-    print(isAliveMatrix[0][0]);
     return true;
   }
 }

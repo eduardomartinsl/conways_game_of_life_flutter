@@ -1,13 +1,18 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:conways_game_of_life/conectors/BoardPageConnector.dart';
-import 'package:conways_game_of_life/customPainters/BoardCustomPainter.dart';
+import 'package:conways_game_of_life/conectors/MainPageConnector.dart';
 import 'package:conways_game_of_life/viewModels/BoardPageViewModel.dart';
+import 'package:conways_game_of_life/widgets/Board.dart';
 
-class BoardFactory extends VmFactory<BoardCustomPainter, BoardPageConnector> {
+class BoardFactory extends VmFactory<Board, MainPageConnector> {
   BoardFactory(widget) : super(widget);
 
   @override
   Vm fromStore() => BoardPageViewModel(
-    boardState: state,
+    numberOfRows: state.numberOfRows,
+    numberOfColumns: state.numberOfColumns,
+    boardWidth: state.boardWidth,
+    boardHeight: state.boardHeight,
+    cellWidth: state.cellWidth,
+    cellHeight: state.cellHeight,
   );
 }
