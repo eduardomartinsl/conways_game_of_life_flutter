@@ -8,18 +8,15 @@ class BoardPageViewModel extends Vm {
   final double boardHeight;
   final double cellWidth;
   final double cellHeight;
-  final VoidCallback onChangeCellState;
 
   BoardPageViewModel({
-    this.onChangeCellState,
-    this.numberOfRows,
-    this.numberOfColumns,
-    this.boardWidth,
-    this.boardHeight,
-    this.cellWidth,
-    this.cellHeight,
+    @required this.numberOfRows,
+    @required this.numberOfColumns,
+    @required this.boardWidth,
+    @required this.boardHeight,
+    @required this.cellWidth,
+    @required this.cellHeight,
   }) : super(equals: [
-          onChangeCellState,
           numberOfRows,
           numberOfColumns,
           boardWidth,

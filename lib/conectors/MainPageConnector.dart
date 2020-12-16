@@ -1,8 +1,8 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:conways_game_of_life/appState/AppState.dart';
 import 'package:conways_game_of_life/factories/BoardFactory.dart';
 import 'package:conways_game_of_life/pages/BoardPage.dart';
 import 'package:conways_game_of_life/viewModels/BoardPageViewModel.dart';
-import 'package:conways_game_of_life/widgets/Board.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -11,7 +11,7 @@ class MainPageConnector extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return StoreConnector<Board, BoardPageViewModel>(
+    return StoreConnector<AppState, BoardPageViewModel>(
         vm: BoardFactory(this),
         builder: (
           BuildContext context,
