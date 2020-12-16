@@ -1,4 +1,5 @@
 import 'package:async_redux/async_redux.dart';
+import 'package:flutter/material.dart';
 
 class BoardPageViewModel extends Vm {
   final int numberOfRows;
@@ -7,8 +8,10 @@ class BoardPageViewModel extends Vm {
   final double boardHeight;
   final double cellWidth;
   final double cellHeight;
+  final VoidCallback onChangeCellState;
 
   BoardPageViewModel({
+    this.onChangeCellState,
     this.numberOfRows,
     this.numberOfColumns,
     this.boardWidth,
@@ -16,6 +19,7 @@ class BoardPageViewModel extends Vm {
     this.cellWidth,
     this.cellHeight,
   }) : super(equals: [
+          onChangeCellState,
           numberOfRows,
           numberOfColumns,
           boardWidth,

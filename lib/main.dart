@@ -15,6 +15,7 @@ void main() {
   cellWidth = boardWidth / numberOfRows;
   cellHeight = boardHeight / numberOfColumns;
 
+
   boardStore = Store<Board>(
       initialState: Board(
     numberOfRows: numberOfRows,
