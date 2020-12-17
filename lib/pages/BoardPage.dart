@@ -8,6 +8,8 @@ class BoardPage extends StatelessWidget {
   final double boardHeight;
   final double cellWidth;
   final double cellHeight;
+  final VoidCallback onDrawCell;
+  final List<List<bool>> whoIsAlive;
 
   const BoardPage(
       {Key key,
@@ -16,7 +18,9 @@ class BoardPage extends StatelessWidget {
       this.boardWidth,
       this.boardHeight,
       this.cellWidth,
-      this.cellHeight})
+      this.cellHeight,
+      this.onDrawCell,
+      this.whoIsAlive})
       : super(key: key);
 
   @override
@@ -38,6 +42,8 @@ class BoardPage extends StatelessWidget {
               boardHeight: boardHeight,
               cellWidth: cellWidth,
               cellHeight: cellHeight,
+              onDrawCell: onDrawCell,
+              whoIsAlive: whoIsAlive,
             )
           ],
         ),

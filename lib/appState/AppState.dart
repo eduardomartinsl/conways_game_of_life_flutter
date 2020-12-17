@@ -1,5 +1,7 @@
 class AppState {
-  final List<List<bool>> isAlive;
+  final List<List<bool>> whoIsAlive;
+
+  //todo substituir tudo por um board?
   final int numberOfRows;
   final int numberOfColumns;
   final double boardWidth;
@@ -14,11 +16,11 @@ class AppState {
     this.boardHeight,
     this.cellWidth,
     this.cellHeight,
-    this.isAlive,
+    this.whoIsAlive,
   });
 
   AppState copy({
-    List<List<bool>> isAlive,
+    List<List<bool>> whoIsAlive,
     int numberOfRows,
     int numberOfColumns,
     double boardWidth,
@@ -27,7 +29,7 @@ class AppState {
     double cellHeight,
   }) =>
       AppState(
-          isAlive: isAlive ?? this.isAlive,
+          whoIsAlive: whoIsAlive ?? this.whoIsAlive,
           numberOfRows: numberOfRows ?? this.numberOfRows,
           numberOfColumns: numberOfColumns ?? this.numberOfColumns,
           boardWidth: boardWidth ?? this.boardWidth,
@@ -46,7 +48,7 @@ class AppState {
   })
       {
         return AppState(
-          isAlive: List.generate(numberOfRows, (i) {
+          whoIsAlive: List.generate(numberOfRows, (i) {
             return List.generate(numberOfRows, (j) {
               return false;
             });

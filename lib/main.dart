@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 
 import 'appState/AppState.dart';
 
-int numberOfRows = 30;
-int numberOfColumns = 30;
+int numberOfRows = 50;
+int numberOfColumns = 50;
 double boardWidth = 500;
 double boardHeight = 500;
 double cellWidth;

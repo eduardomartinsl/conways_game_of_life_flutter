@@ -24,6 +24,8 @@ class MainPageConnector extends StatelessWidget {
               boardHeight: vm.boardHeight,
               cellWidth: vm.cellWidth,
               cellHeight: vm.cellHeight,
+              onDrawCell: vm.onDrawCell,
+              whoIsAlive: vm.whoIsAlive,
             ));
   }
 }

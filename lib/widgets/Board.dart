@@ -8,6 +8,8 @@ class Board extends StatefulWidget {
   final double boardHeight;
   final double cellWidth;
   final double cellHeight;
+  final List<List<bool>> whoIsAlive;
+  final VoidCallback onDrawCell;
 
   Board({
     Key key,
@@ -17,6 +19,8 @@ class Board extends StatefulWidget {
     this.boardHeight,
     this.cellWidth,
     this.cellHeight,
+    this.onDrawCell,
+    this.whoIsAlive,
   }) : super(key: key);
 
   @override
@@ -24,24 +28,25 @@ class Board extends StatefulWidget {
 }
 
 class _BoardState extends State<Board> {
-  List<List<bool>> isAliveMatrix;
+  List<List<bool>> whoIsAlive;
 
   void cellClick(PointerEvent e) {
+    changeCellState(e);
+    widget.onDrawCell();
+  }
+
+  void changeCellState(PointerEvent e) {
     setState(() {
-      isAliveMatrix[e.localPosition.dx ~/ widget.cellHeight]
-      [e.localPosition.dy ~/ widget.cellHeight] =
-      !isAliveMatrix[e.localPosition.dx ~/ widget.cellWidth]
-      [e.localPosition.dy ~/ widget.cellHeight];
+      whoIsAlive[e.localPosition.dx ~/ widget.cellHeight]
+              [e.localPosition.dy ~/ widget.cellHeight] =
+          !whoIsAlive[e.localPosition.dx ~/ widget.cellWidth]
+              [e.localPosition.dy ~/ widget.cellHeight];
     });
   }
 
   @override
   void initState() {
-    isAliveMatrix = List.generate(widget.numberOfRows, (i) {
-      return List.generate(widget.numberOfColumns, (j) {
-        return false;
-      });
-    });
+    whoIsAlive = widget.whoIsAlive;
     super.initState();
   }
 
@@ -59,7 +64,7 @@ class _BoardState extends State<Board> {
               numberOfColumns: widget.numberOfColumns,
               cellHeight: widget.cellHeight,
               cellWidth: widget.cellWidth,
-              isAliveMatrix: isAliveMatrix),
+              isAliveMatrix: whoIsAlive),
         ),
       ),
     );
