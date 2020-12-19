@@ -1,5 +1,9 @@
+import 'package:flutter/foundation.dart';
+
+@immutable
 class AppState {
   final List<List<bool>> whoIsAlive;
+  final List<List<bool>> newCycle;
 
   //todo substituir tudo por um board?
   final int numberOfRows;
@@ -17,10 +21,12 @@ class AppState {
     this.cellWidth,
     this.cellHeight,
     this.whoIsAlive,
+    this.newCycle
   });
 
   AppState copy({
     List<List<bool>> whoIsAlive,
+    List<List<bool>> newCycle,
     int numberOfRows,
     int numberOfColumns,
     double boardWidth,

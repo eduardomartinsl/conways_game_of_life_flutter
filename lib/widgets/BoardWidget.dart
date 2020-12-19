@@ -1,7 +1,9 @@
+import 'dart:async';
+
 import 'package:conways_game_of_life/customPainters/BoardCustomPainter.dart';
 import 'package:flutter/material.dart';
 
-class Board extends StatefulWidget {
+class BoardWidget extends StatefulWidget {
   final int numberOfRows;
   final int numberOfColumns;
   final double boardWidth;
@@ -9,9 +11,10 @@ class Board extends StatefulWidget {
   final double cellWidth;
   final double cellHeight;
   final List<List<bool>> whoIsAlive;
-  final VoidCallback onDrawCell;
+  final VoidCallback updateTable;
+  final Function(int, int) drawCellcallback;
 
-  Board({
+  BoardWidget({
     Key key,
     this.numberOfRows,
     this.numberOfColumns,
@@ -19,42 +22,43 @@ class Board extends StatefulWidget {
     this.boardHeight,
     this.cellWidth,
     this.cellHeight,
-    this.onDrawCell,
     this.whoIsAlive,
+    this.updateTable,
+    this.drawCellcallback
   }) : super(key: key);
 
   @override
-  _BoardState createState() => _BoardState();
+  _BoardWidgetState createState() => _BoardWidgetState();
 }
 
-class _BoardState extends State<Board> {
+class _BoardWidgetState extends State<BoardWidget> {
   List<List<bool>> whoIsAlive;
-
-  void cellClick(PointerEvent e) {
-    changeCellState(e);
-    widget.onDrawCell();
-  }
-
-  void changeCellState(PointerEvent e) {
-    setState(() {
-      whoIsAlive[e.localPosition.dx ~/ widget.cellHeight]
-              [e.localPosition.dy ~/ widget.cellHeight] =
-          !whoIsAlive[e.localPosition.dx ~/ widget.cellWidth]
-              [e.localPosition.dy ~/ widget.cellHeight];
-    });
-  }
+  Timer timer;
 
   @override
   void initState() {
     whoIsAlive = widget.whoIsAlive;
+    timer = new Timer.periodic(Duration(milliseconds: 100), (Timer t) {
+      //insert redux
+      widget.updateTable();
+      // setState(() {
+      //   painter.update();
+      // });
+    });
     super.initState();
+  }
+
+  void changeCellState(PointerEvent e) {
+    int column = e.localPosition.dx ~/ widget.cellWidth;
+    int row = e.localPosition.dy ~/ widget.cellHeight;
+    widget.drawCellcallback(row, column);
   }
 
   @override
   Widget build(BuildContext context) {
     return Listener(
-      onPointerDown: cellClick,
-      onPointerMove: cellClick,
+      onPointerDown: changeCellState,
+      onPointerMove: changeCellState,
       child: SizedBox(
         width: widget.boardWidth,
         height: widget.boardHeight,

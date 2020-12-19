@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 
 class BoardPageViewModel extends Vm {
   final VoidCallback onDrawCell;
+  final VoidCallback updateTable;
+  Function(int, int) drawCellCallback;
+
   final int numberOfRows;
   final int numberOfColumns;
   final double boardWidth;
@@ -11,8 +14,11 @@ class BoardPageViewModel extends Vm {
   final double cellHeight;
   final List<List<bool>> whoIsAlive;
 
+
   BoardPageViewModel({
+    @required this.updateTable,
     @required this.onDrawCell,
+    @required this.drawCellCallback,
     @required this.numberOfRows,
     @required this.numberOfColumns,
     @required this.boardWidth,
