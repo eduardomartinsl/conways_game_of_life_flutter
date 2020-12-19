@@ -18,12 +18,7 @@ class MainPageConnector extends StatelessWidget {
           BoardPageViewModel vm,
         ) =>
             BoardPage(
-              numberOfRows: vm.numberOfRows,
-              numberOfColumns: vm.numberOfColumns,
-              boardWidth: vm.boardWidth,
-              boardHeight: vm.boardHeight,
-              cellWidth: vm.cellWidth,
-              cellHeight: vm.cellHeight,
+              board: vm.board,
               onDrawCell: vm.onDrawCell,
               whoIsAlive: vm.whoIsAlive,
               updateTable: vm.updateTable,

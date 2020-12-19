@@ -10,14 +10,9 @@ class BoardFactory extends VmFactory<AppState, MainPageConnector> {
 
   @override
   Vm fromStore() => BoardPageViewModel(
-        numberOfRows: state.numberOfRows,
-        numberOfColumns: state.numberOfColumns,
-        boardWidth: state.boardWidth,
-        boardHeight: state.boardHeight,
-        cellWidth: state.cellWidth,
-        cellHeight: state.cellHeight,
+        board: state.board,
         whoIsAlive: state.whoIsAlive,
         updateTable: () => dispatch(UpdateTableCycle(newCycle: state.whoIsAlive)),
-        drawCellCallback: (row, column) => dispatch(ChangeCellStateAction(row: row, column: column))
+        drawCellCallback: (row, column) => dispatch(ChangeCellStateAction(row: row, column: column)), onDrawCell: () {  }
       );
 }

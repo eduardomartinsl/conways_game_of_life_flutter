@@ -1,13 +1,9 @@
+import 'package:conways_game_of_life/models/Board.dart';
 import 'package:conways_game_of_life/widgets/BoardWidget.dart';
 import 'package:flutter/material.dart';
 
 class BoardPage extends StatelessWidget {
-  final int numberOfRows;
-  final int numberOfColumns;
-  final double boardWidth;
-  final double boardHeight;
-  final double cellWidth;
-  final double cellHeight;
+  final Board board;
   final VoidCallback onDrawCell;
   final List<List<bool>> whoIsAlive;
   final VoidCallback updateTable;
@@ -15,12 +11,7 @@ class BoardPage extends StatelessWidget {
 
   const BoardPage({
     Key key,
-    this.numberOfRows,
-    this.numberOfColumns,
-    this.boardWidth,
-    this.boardHeight,
-    this.cellWidth,
-    this.cellHeight,
+    this.board,
     this.onDrawCell,
     this.whoIsAlive,
     this.updateTable,
@@ -40,12 +31,7 @@ class BoardPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             BoardWidget(
-              numberOfRows: numberOfRows,
-              numberOfColumns: numberOfColumns,
-              boardWidth: boardWidth,
-              boardHeight: boardHeight,
-              cellWidth: cellWidth,
-              cellHeight: cellHeight,
+              board: board,
               whoIsAlive: whoIsAlive,
               updateTable: updateTable,
               drawCellcallback: drawCellCallback,
