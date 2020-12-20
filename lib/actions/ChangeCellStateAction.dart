@@ -1,9 +1,10 @@
+import 'dart:convert';
+
 import 'package:async_redux/async_redux.dart';
 import 'package:conways_game_of_life/appState/AppState.dart';
+import 'package:conways_game_of_life/pages/BoardPage.dart';
 
 class ChangeCellStateAction extends ReduxAction<AppState> {
-  //todo list
-
   final int row;
   final int column;
 
@@ -12,10 +13,17 @@ class ChangeCellStateAction extends ReduxAction<AppState> {
         assert(column != null);
 
   @override
-  AppState reduce() {
-    var newState = state.whoIsAlive;
-    newState[row][column] = !state.whoIsAlive[row][column];
+  Future<AppState> reduce() async {
+    var newBoard = state.board;
+    try {
+      newBoard.whoIsAlive[row][column] = !state.board.whoIsAlive[row][column];
+    } catch (error) {
+      print('Caught error: $error');
+    }
 
-    return state.copy(whoIsAlive: newState);
+    await databaseReference.child("board").set({
+      'boardState': jsonEncode(newBoard)
+    });
+    // return state.copy(board: newBoard);
   }
 }
