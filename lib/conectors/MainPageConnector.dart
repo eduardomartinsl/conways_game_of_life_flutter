@@ -1,5 +1,6 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:conways_game_of_life/actions/ChangeCellStateAction.dart';
+import 'package:conways_game_of_life/actions/UpdateTableCycleAction.dart';
 import 'package:conways_game_of_life/appState/AppState.dart';
 import 'package:conways_game_of_life/models/Board.dart';
 import 'package:conways_game_of_life/pages/BoardPage.dart';
@@ -19,8 +20,8 @@ class MainPageConnector extends StatelessWidget {
         ) =>
             BoardPage(
               board: vm.board,
-              updateTable: vm.updateTable,
               drawCellCallback: vm.drawCellCallback,
+              updateCycle: vm.updateCycle,
             ));
   }
 }
@@ -30,24 +31,25 @@ class BoardFactory extends VmFactory<AppState, MainPageConnector> {
 
   @override
   Vm fromStore() => BoardPageViewModel(
-      board: state.board,
-      drawCellCallback: (row, column) => dispatch(
-            ChangeCellStateAction(
-              row: row,
-              column: column,
-            ),
+        board: state.board,
+        drawCellCallback: (row, column) => dispatch(
+          ChangeCellStateAction(
+            row: row,
+            column: column,
           ),
-      updateTable: () {});
+        ),
+        updateCycle: () => dispatch(UpdateTableCycleAction()),
+      );
 }
 
 class BoardPageViewModel extends Vm {
-  final VoidCallback updateTable;
   final Function(int, int) drawCellCallback;
   final Board board;
+  final VoidCallback updateCycle;
 
   BoardPageViewModel({
-    @required this.updateTable,
     @required this.drawCellCallback,
+    @required this.updateCycle,
     @required this.board,
   }) : super(equals: [
           board,

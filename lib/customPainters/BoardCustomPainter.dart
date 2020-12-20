@@ -15,31 +15,6 @@ class BoardCustomPainter extends CustomPainter {
     this.isAliveMatrix,
   });
 
-  // void update() {
-  //   List<List<bool>> nextState = isAliveMatrix;
-  //
-  //   for (var row = 0; row < numberOfRows; row++)
-  //     for (var column = 0; column < numberOfColumns; column++) {
-  //       int totalNeighbours = countNeighbours(row, column);
-  //       nextState[row][column] =
-  //           !isAliveMatrix[row][column] && totalNeighbours == 3 ||
-  //               isAliveMatrix[row][column] &&
-  //                   totalNeighbours >= 2 &&
-  //                   totalNeighbours <= 3;
-  //     }
-  // }
-  //
-  // int countNeighbours(int row, int column) {
-  //   int count = 0;
-  //   for (var i = row - 1; i <= row + 1; i++)
-  //     for (var j = column - 1; j <= column + 1; j++) {
-  //       if (isAliveMatrix[(i + numberOfRows) % numberOfRows]
-  //           [(j + numberOfColumns) % numberOfColumns]) count++;
-  //     }
-  //   count -= (isAliveMatrix[row][column] ? 1 : 0);
-  //   return count;
-  // }
-
   @override
   void paint(Canvas canvas, Size size) {
     canvas.drawRect(

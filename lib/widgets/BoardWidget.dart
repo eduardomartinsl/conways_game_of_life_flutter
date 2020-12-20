@@ -4,13 +4,11 @@ import 'package:flutter/material.dart';
 
 class BoardWidget extends StatelessWidget {
   final Board board;
-  final VoidCallback updateTable;
   final Function(int, int) drawCellcallback;
 
   const BoardWidget({
     Key key,
     this.board,
-    this.updateTable,
     this.drawCellcallback,
   }) : super(key: key);
 
@@ -30,11 +28,12 @@ class BoardWidget extends StatelessWidget {
         height: board.boardHeight,
         child: CustomPaint(
           painter: BoardCustomPainter(
-              numberOfRows: board.numberOfRows,
-              numberOfColumns: board.numberOfColumns,
-              cellHeight: board.cellHeight,
-              cellWidth: board.cellWidth,
-              isAliveMatrix: board.whoIsAlive),
+            numberOfRows: board.numberOfRows,
+            numberOfColumns: board.numberOfColumns,
+            cellHeight: board.cellHeight,
+            cellWidth: board.cellWidth,
+            isAliveMatrix: board.whoIsAlive,
+          ),
         ),
       ),
     );

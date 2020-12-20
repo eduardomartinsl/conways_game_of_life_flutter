@@ -1,7 +1,3 @@
-import 'dart:convert';
-import 'dart:ffi';
-
-import 'package:conways_game_of_life/appState/AppState.dart';
 import 'package:conways_game_of_life/models/Board.dart';
 import 'package:conways_game_of_life/widgets/BoardWidget.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -10,18 +6,14 @@ import 'package:flutter/material.dart';
 final databaseReference = FirebaseDatabase.instance.reference();
 
 class BoardPage extends StatelessWidget {
-
   final Board board;
-  final VoidCallback onDrawCell;
-  final VoidCallback updateTable;
   final Function(int, int) drawCellCallback;
-
+  final VoidCallback updateCycle;
 
   const BoardPage(
       {Key key,
+      this.updateCycle,
       this.board,
-      this.onDrawCell,
-      this.updateTable,
       this.drawCellCallback})
       : super(key: key);
 
@@ -39,7 +31,6 @@ class BoardPage extends StatelessWidget {
           children: [
             BoardWidget(
               board: board,
-              updateTable: updateTable,
               drawCellcallback: drawCellCallback,
             )
           ],
@@ -48,6 +39,7 @@ class BoardPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton.extended(
           icon: Icon(Icons.play_arrow),
           onPressed: () => {
+                updateCycle(),
                 databaseReference.child("isPaused").set({
                   'status': false,
                 }),

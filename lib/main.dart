@@ -1,9 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:conways_game_of_life/conectors/MainPageConnector.dart';
 import 'package:conways_game_of_life/models/Board.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:firebase_database/firebase_database.dart';
 
 import 'appState/AppState.dart';
 
@@ -15,7 +13,6 @@ double cellWidth;
 double cellHeight;
 
 Store<AppState> store;
-
 
 //
 // void createData(){
@@ -34,13 +31,7 @@ void main() {
   cellWidth = boardWidth / numberOfRows;
   cellHeight = boardHeight / numberOfColumns;
 
-
-
-  var whoIsAlive = List.generate(numberOfRows, (i) {
-    return List.generate(numberOfRows, (j) {
-      return false;
-    });
-  });
+  var whoIsAlive = fillList();
 
   Board board = Board(
     numberOfRows: numberOfRows,
@@ -49,20 +40,25 @@ void main() {
     boardHeight: boardHeight,
     cellWidth: cellWidth,
     cellHeight: cellHeight,
-    whoIsAlive: whoIsAlive
+    whoIsAlive: whoIsAlive,
   );
 
-  var state = AppState.initialState(
-    board: board
-  );
+  var state = AppState.initialState(board: board);
 
   store = Store<AppState>(initialState: state);
 
   runApp(MainPage());
 }
 
-class MainPage extends StatelessWidget {
+List<List<bool>> fillList() {
+  return List.generate(numberOfRows, (i) {
+      return List.generate(numberOfRows, (j) {
+        return false;
+      });
+    });
+}
 
+class MainPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) => StoreProvider<AppState>(
       store: store,
