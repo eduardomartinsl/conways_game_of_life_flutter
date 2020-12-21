@@ -4,7 +4,6 @@ import 'package:async_redux/async_redux.dart';
 import 'package:conways_game_of_life/appState/AppState.dart';
 class ChangeCellStateAction extends ReduxAction<AppState> {
 
-
   final int row;
   final int column;
 
@@ -35,8 +34,6 @@ class ChangeCellStateAction extends ReduxAction<AppState> {
 
     assert(state.board != newBoard );
 
-
-
-    return state.copy(board: newBoard);
+    return state.copy(board: newBoard, isPaused: state.isPaused);
   }
 }

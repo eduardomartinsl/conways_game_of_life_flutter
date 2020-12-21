@@ -45,7 +45,7 @@ class UpdateTableCycleAction extends ReduxAction<AppState> {
       'boardState': jsonEncode(newBoard)
     });
 
-    return state.copy(board: newBoard);
+    return state.copy(board: newBoard, isPaused: !state.isPaused);
   }
 
   int countNeighbours(int row, int column) {

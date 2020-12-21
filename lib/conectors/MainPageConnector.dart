@@ -22,6 +22,7 @@ class MainPageConnector extends StatelessWidget {
               board: vm.board,
               drawCellCallback: vm.drawCellCallback,
               updateCycle: vm.updateCycle,
+              isPaused: vm.isPaused,
             ));
   }
 }
@@ -38,7 +39,10 @@ class BoardFactory extends VmFactory<AppState, MainPageConnector> {
             column: column,
           ),
         ),
-        updateCycle: () => dispatch(UpdateTableCycleAction()),
+        updateCycle: () {
+          dispatch(UpdateTableCycleAction());
+        },
+    isPaused: state.isPaused,
       );
 }
 
@@ -47,11 +51,15 @@ class BoardPageViewModel extends Vm {
   final Board board;
   final VoidCallback updateCycle;
 
+  final bool isPaused;
+
   BoardPageViewModel({
     @required this.drawCellCallback,
     @required this.updateCycle,
     @required this.board,
+    @required this.isPaused,
   }) : super(equals: [
           board,
+          isPaused,
         ]);
 }

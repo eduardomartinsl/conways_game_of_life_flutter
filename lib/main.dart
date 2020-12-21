@@ -30,7 +30,7 @@ void main() {
     whoIsAlive: whoIsAlive,
   );
 
-  var state = AppState.initialState(board: board);
+  var state = AppState.initialState(board: board, isPaused: true);
 
   store = Store<AppState>(initialState: state);
 

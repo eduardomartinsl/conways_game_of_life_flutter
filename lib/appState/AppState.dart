@@ -5,22 +5,29 @@ import 'package:flutter/foundation.dart';
 class AppState {
   final Board board;
 
+  final bool isPaused;
+
   AppState({
     this.board,
+    this.isPaused,
   });
 
   AppState copy({
     Board board,
+    bool isPaused,
   }) =>
       AppState(
         board: board ?? this.board,
+        isPaused: isPaused ?? isPaused,
       );
 
   static AppState initialState({
     board,
+    isPaused,
   }) {
     return AppState(
       board: board,
+      isPaused: isPaused,
     );
   }
 }
