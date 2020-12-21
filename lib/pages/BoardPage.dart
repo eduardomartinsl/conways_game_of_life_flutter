@@ -23,6 +23,13 @@ class BoardPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // Timer timer = new Timer.periodic(Duration(milliseconds: 400), (Timer timer) {
+    //   updateCycle();
+    //   // if(isPaused) timer.cancel();
+    // });
+
+    Timer timer;
+
     return Scaffold(
       appBar: AppBar(
         title: Text("Conway`s Game of Life Sim"),
@@ -43,9 +50,8 @@ class BoardPage extends StatelessWidget {
       floatingActionButton: FloatingActionButton.extended(
           icon: Icon(Icons.play_arrow),
           onPressed: () {
-            Timer.periodic(Duration(milliseconds: 400), (Timer timer) {
+            timer = Timer.periodic(Duration(milliseconds: 400), (Timer timer) {
               updateCycle();
-              // if(isPaused) timer.cancel();
             });
           },
           label: Text("Execute")),
