@@ -11,22 +11,16 @@ class BoardPage extends StatelessWidget {
   final Board board;
   final Function(int, int) drawCellCallback;
   final VoidCallback updateCycle;
-  final bool isPaused;
 
   const BoardPage({
     Key key,
     this.updateCycle,
     this.board,
     this.drawCellCallback,
-    this.isPaused,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    // Timer timer = new Timer.periodic(Duration(milliseconds: 400), (Timer timer) {
-    //   updateCycle();
-    //   // if(isPaused) timer.cancel();
-    // });
 
     Timer timer;
 

@@ -1,10 +1,15 @@
+import 'dart:convert';
+
 import 'package:async_redux/async_redux.dart';
 import 'package:conways_game_of_life/appState/AppState.dart';
 import 'package:conways_game_of_life/models/Board.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class UpdateTableCycleAction extends ReduxAction<AppState> {
   @override
   Board newBoard;
+
+  final databaseReference = FirebaseDatabase.instance.reference();
 
   List<List<bool>> hiddenMatrix1;
   List<List<bool>> hiddenMatrix2;
@@ -35,6 +40,11 @@ class UpdateTableCycleAction extends ReduxAction<AppState> {
     }
 
     assert(state.board != newBoard );
+
+    await databaseReference.child("board").set({
+      'boardState': jsonEncode(newBoard)
+    });
+
     return state.copy(board: newBoard);
   }
 

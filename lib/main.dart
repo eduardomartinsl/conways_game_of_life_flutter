@@ -14,19 +14,6 @@ double cellHeight;
 
 Store<AppState> store;
 
-//
-// void createData(){
-//   databaseReference.child("isPaused").set({
-//     'status': false,
-//   });
-// }
-//
-// void readData(){
-//   databaseReference.once().then((DataSnapshot snapshot) {
-//     print('Data : ${snapshot.value}');
-//   });
-// }
-
 void main() {
   cellWidth = boardWidth / numberOfRows;
   cellHeight = boardHeight / numberOfColumns;
