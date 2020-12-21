@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:conways_game_of_life/models/Board.dart';
 import 'package:conways_game_of_life/widgets/BoardWidget.dart';
 import 'package:firebase_database/firebase_database.dart';
@@ -9,13 +11,15 @@ class BoardPage extends StatelessWidget {
   final Board board;
   final Function(int, int) drawCellCallback;
   final VoidCallback updateCycle;
+  final bool isPaused;
 
-  const BoardPage(
-      {Key key,
-      this.updateCycle,
-      this.board,
-      this.drawCellCallback})
-      : super(key: key);
+  const BoardPage({
+    Key key,
+    this.updateCycle,
+    this.board,
+    this.drawCellCallback,
+    this.isPaused,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -38,12 +42,12 @@ class BoardPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton.extended(
           icon: Icon(Icons.play_arrow),
-          onPressed: () => {
-                updateCycle(),
-                databaseReference.child("isPaused").set({
-                  'status': false,
-                }),
-              },
+          onPressed: () {
+            Timer.periodic(Duration(milliseconds: 400), (Timer timer) {
+              updateCycle();
+              // if(isPaused) timer.cancel();
+            });
+          },
           label: Text("Execute")),
     );
   }
