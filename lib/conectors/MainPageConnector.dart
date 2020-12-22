@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:async_redux/async_redux.dart';
 import 'package:conways_game_of_life/actions/ChangeCellStateAction.dart';
+import 'package:conways_game_of_life/actions/ChangeIsPausedAction.dart';
 import 'package:conways_game_of_life/actions/UpdateTableCycleAction.dart';
 import 'package:conways_game_of_life/appState/AppState.dart';
 import 'package:conways_game_of_life/models/Board.dart';
@@ -23,6 +26,7 @@ class MainPageConnector extends StatelessWidget {
               drawCellCallback: vm.drawCellCallback,
               updateCycle: vm.updateCycle,
               isPaused: vm.isPaused,
+              changeIsPaused: vm.changeIsPaused,
             ));
   }
 }
@@ -33,16 +37,11 @@ class BoardFactory extends VmFactory<AppState, MainPageConnector> {
   @override
   Vm fromStore() => BoardPageViewModel(
         board: state.board,
-        drawCellCallback: (row, column) => dispatch(
-          ChangeCellStateAction(
-            row: row,
-            column: column,
-          ),
-        ),
-        updateCycle: () {
-          dispatch(UpdateTableCycleAction());
-        },
-    isPaused: state.isPaused,
+        drawCellCallback: (row, column) =>
+            dispatch(ChangeCellStateAction(row: row, column: column)),
+        updateCycle: () => dispatch(UpdateTableCycleAction()),
+        changeIsPaused: () => dispatch(ChangeIsPausedAction()),
+        isPaused: state.isPaused,
       );
 }
 
@@ -53,11 +52,14 @@ class BoardPageViewModel extends Vm {
 
   final bool isPaused;
 
+  final VoidCallback changeIsPaused;
+
   BoardPageViewModel({
     @required this.drawCellCallback,
     @required this.updateCycle,
     @required this.board,
     @required this.isPaused,
+    @required this.changeIsPaused,
   }) : super(equals: [
           board,
           isPaused,

@@ -34,6 +34,6 @@ class ChangeCellStateAction extends ReduxAction<AppState> {
 
     assert(state.board != newBoard );
 
-    return state.copy(board: newBoard, isPaused: state.isPaused);
+    return state.copy(board: newBoard);
   }
 }

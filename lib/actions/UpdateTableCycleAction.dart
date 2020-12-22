@@ -14,7 +14,8 @@ class UpdateTableCycleAction extends ReduxAction<AppState> {
   List<List<bool>> hiddenMatrix1;
   List<List<bool>> hiddenMatrix2;
 
-  Future<AppState> reduce() async {
+  AppState reduce() {
+    if(state.isPaused) return null;
     List<List<bool>> newTableCycle = [];
 
     for (List<bool> row in state.board.whoIsAlive) {
@@ -41,11 +42,12 @@ class UpdateTableCycleAction extends ReduxAction<AppState> {
 
     assert(state.board != newBoard );
 
-    await databaseReference.child("board").set({
-      'boardState': jsonEncode(newBoard)
-    });
+    //todo área de sync com real time database
+    // await databaseReference.child("board").set({
+    //   'boardState': jsonEncode(newBoard)
+    // });
 
-    return state.copy(board: newBoard, isPaused: !state.isPaused);
+    return state.copy(board: newBoard);
   }
 
   int countNeighbours(int row, int column) {

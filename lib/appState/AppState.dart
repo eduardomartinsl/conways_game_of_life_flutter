@@ -18,7 +18,7 @@ class AppState {
   }) =>
       AppState(
         board: board ?? this.board,
-        isPaused: isPaused ?? isPaused,
+        isPaused: isPaused ?? this.isPaused,
       );
 
   static AppState initialState({
