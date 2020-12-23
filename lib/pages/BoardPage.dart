@@ -34,7 +34,6 @@ class _BoardPageState extends State<BoardPage> {
   @override
   void initState() {
     timer = Timer.periodic(Duration(milliseconds: 300), (Timer timer) {
-      print(widget.isPaused);
       if (!widget.isPaused) widget.updateCycle();
     });
     super.initState();

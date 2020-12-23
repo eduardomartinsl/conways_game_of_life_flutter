@@ -13,8 +13,8 @@ class BoardWidget extends StatelessWidget {
   }) : super(key: key);
 
   void changeCellState(PointerEvent e) {
-    int row = e.localPosition.dx ~/ board.cellWidth;
-    int column = e.localPosition.dy ~/ board.cellHeight;
+    int column = e.localPosition.dx ~/ board.cellWidth;
+    int row = e.localPosition.dy ~/ board.cellHeight;
     drawCellcallback(row, column);
   }
 

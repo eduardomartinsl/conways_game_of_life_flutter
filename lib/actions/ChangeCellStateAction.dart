@@ -16,7 +16,7 @@ class ChangeCellStateAction extends ReduxAction<AppState> {
     List<List<bool>> newWhoIsAlive = [];
 
     for (List<bool> row in state.board.whoIsAlive) {
-      var newRow = <bool>[];
+      var newRow = List<bool>();
 
       for (bool element in row) {
         newRow.add(element);
@@ -26,11 +26,7 @@ class ChangeCellStateAction extends ReduxAction<AppState> {
     }
 
     var newBoard = state.board.copy(whoIsAlive: newWhoIsAlive);
-    try {
       newBoard.whoIsAlive[row][column] = !state.board.whoIsAlive[row][column];
-    } catch (error) {
-      print('Caught error: $error');
-    }
 
     assert(state.board != newBoard );
 

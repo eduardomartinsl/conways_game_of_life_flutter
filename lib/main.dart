@@ -1,14 +1,14 @@
 import 'package:async_redux/async_redux.dart';
-import 'package:conways_game_of_life/conectors/MainPageConnector.dart';
+import 'package:conways_game_of_life/conectors/BoardPageConnector.dart';
 import 'package:conways_game_of_life/models/Board.dart';
 import 'package:flutter/material.dart';
 
 import 'appState/AppState.dart';
 
-int numberOfRows = 50;
-int numberOfColumns = 50;
-double boardWidth = 500;
-double boardHeight = 500;
+int numberOfRows = 5;
+int numberOfColumns = 5;
+double boardWidth = 200;
+double boardHeight = 200;
 double cellWidth;
 double cellHeight;
 
@@ -18,7 +18,7 @@ void main() {
   cellWidth = boardWidth / numberOfRows;
   cellHeight = boardHeight / numberOfColumns;
 
-  var whoIsAlive = fillList();
+  var whoIsAlive = initializeList();
 
   Board board = Board(
     numberOfRows: numberOfRows,
@@ -37,7 +37,7 @@ void main() {
   runApp(MainPage());
 }
 
-List<List<bool>> fillList() {
+List<List<bool>> initializeList() {
   return List.generate(numberOfRows, (i) {
       return List.generate(numberOfRows, (j) {
         return false;
@@ -51,6 +51,6 @@ class MainPage extends StatelessWidget {
       store: store,
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: MainPageConnector(),
+        home: BoardPageConnector(),
       ));
 }

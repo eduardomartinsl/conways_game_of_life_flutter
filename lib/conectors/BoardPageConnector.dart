@@ -10,8 +10,8 @@ import 'package:conways_game_of_life/pages/BoardPage.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-class MainPageConnector extends StatelessWidget {
-  MainPageConnector({Key key}) : super(key: key);
+class BoardPageConnector extends StatelessWidget {
+  BoardPageConnector({Key key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class MainPageConnector extends StatelessWidget {
   }
 }
 
-class BoardFactory extends VmFactory<AppState, MainPageConnector> {
+class BoardFactory extends VmFactory<AppState, BoardPageConnector> {
   BoardFactory(widget) : super(widget);
 
   @override

@@ -6,17 +6,15 @@ import 'package:conways_game_of_life/models/Board.dart';
 import 'package:firebase_database/firebase_database.dart';
 
 class UpdateTableCycleAction extends ReduxAction<AppState> {
-  @override
+  Board actualBoard;
   Board newBoard;
 
   final databaseReference = FirebaseDatabase.instance.reference();
 
-  List<List<bool>> hiddenMatrix1;
-  List<List<bool>> hiddenMatrix2;
-
   AppState reduce() {
     if(state.isPaused) return null;
-    List<List<bool>> newTableCycle = [];
+
+    List<List<bool>> actualTable = [];
 
     for (List<bool> row in state.board.whoIsAlive) {
       var newRow = <bool>[];
@@ -24,17 +22,20 @@ class UpdateTableCycleAction extends ReduxAction<AppState> {
         newRow.add(element);
       }
 
-      newTableCycle.add(newRow);
+      actualTable.add(newRow);
     }
 
-    newBoard = state.board.copy(whoIsAlive: newTableCycle);
+    actualBoard = state.board.copy(whoIsAlive: actualTable);
+    newBoard = state.board.copy(whoIsAlive: actualTable);
 
-    for (var row = 0; row < state.board.numberOfRows; row++) {
-      for (var column = 0; column < state.board.numberOfColumns; column++) {
+    for (var row = 0; row < actualBoard.numberOfRows; row++) {
+      for (var column = 0; column < actualBoard.numberOfColumns; column++) {
+
         int totalNeighbours = countNeighbours(row, column);
+
         newBoard.whoIsAlive[row][column] =
-            !state.board.whoIsAlive[row][column] && totalNeighbours == 3 ||
-                state.board.whoIsAlive[row][column] &&
+            !actualBoard.whoIsAlive[row][column] && totalNeighbours == 3 ||
+                actualBoard.whoIsAlive[row][column] &&
                     totalNeighbours >= 2 &&
                     totalNeighbours <= 3;
       }
@@ -54,12 +55,12 @@ class UpdateTableCycleAction extends ReduxAction<AppState> {
     int neighboursCount = 0;
     for (var i = row - 1; i <= row + 1; i++)
       for (var j = column - 1; j <= column + 1; j++) {
-        if (newBoard.whoIsAlive[
-                (i + state.board.numberOfRows) % state.board.numberOfRows]
-            [(j + state.board.numberOfColumns) % state.board.numberOfColumns])
+        var localRow = (i + state.board.numberOfRows) % state.board.numberOfRows;
+        var localColumn = (j + state.board.numberOfColumns) % state.board.numberOfColumns;
+        if (actualBoard.whoIsAlive[localRow][localColumn])
           neighboursCount++;
       }
-    neighboursCount -= (newBoard.whoIsAlive[row][column] ? 1 : 0);
+    neighboursCount -= (actualBoard.whoIsAlive[row][column] ? 1 : 0);
     return neighboursCount;
   }
 }
