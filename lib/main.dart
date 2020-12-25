@@ -7,8 +7,8 @@ import 'appState/AppState.dart';
 
 int numberOfRows = 30;
 int numberOfColumns = 30;
-double boardWidth = 500;
-double boardHeight = 500;
+double boardWidth = 400;
+double boardHeight = 400;
 double cellWidth;
 double cellHeight;
 

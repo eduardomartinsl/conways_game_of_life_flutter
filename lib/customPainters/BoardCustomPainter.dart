@@ -6,6 +6,8 @@ class BoardCustomPainter extends CustomPainter {
   final int numberOfRows;
   final int numberOfColumns;
   List<List<bool>> isAliveMatrix;
+  final Color cellColor;
+
 
   BoardCustomPainter({
     this.numberOfRows,
@@ -13,6 +15,7 @@ class BoardCustomPainter extends CustomPainter {
     this.cellWidth,
     this.cellHeight,
     this.isAliveMatrix,
+    this.cellColor
   });
 
   @override
@@ -35,6 +38,7 @@ class BoardCustomPainter extends CustomPainter {
             row * cellHeight,
             cellWidth,
             cellHeight,
+            cellColor
           );
         }
       }
@@ -47,10 +51,11 @@ class BoardCustomPainter extends CustomPainter {
     double dy,
     double cellWidth,
     double cellHeight,
+    Color cellColor,
   ) {
     canvas.drawRect(
       Offset(dx, dy) & Size(cellWidth, cellHeight),
-      Paint()..color = Colors.black45,
+      Paint()..color = cellColor,
     );
   }
 

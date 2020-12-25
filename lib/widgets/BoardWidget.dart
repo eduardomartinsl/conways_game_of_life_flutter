@@ -4,15 +4,18 @@ import 'package:flutter/material.dart';
 
 class BoardWidget extends StatelessWidget {
   final Board board;
+  final bool isPaused;
   final Function(int, int) drawCellcallback;
 
   const BoardWidget({
     Key key,
     this.board,
     this.drawCellcallback,
+    this. isPaused,
   }) : super(key: key);
 
   void changeCellState(PointerEvent e) {
+    if(!isPaused) return null;
     int row = e.localPosition.dy ~/ board.cellHeight;
     int column = e.localPosition.dx ~/ board.cellWidth;
     drawCellcallback(row, column);
@@ -33,6 +36,7 @@ class BoardWidget extends StatelessWidget {
             cellHeight: board.cellHeight,
             cellWidth: board.cellWidth,
             isAliveMatrix: board.whoIsAlive,
+            cellColor: Colors.black45,
           ),
         ),
       ),

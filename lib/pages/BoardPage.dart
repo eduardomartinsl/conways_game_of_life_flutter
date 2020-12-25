@@ -60,6 +60,7 @@ class _BoardPageState extends State<BoardPage> {
             BoardWidget(
               board: widget.board,
               drawCellcallback: widget.drawCellCallback,
+              isPaused: widget.isPaused,
             ),
           ],
         ),

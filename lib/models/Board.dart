@@ -13,15 +13,17 @@ class Board {
   final double cellHeight;
   final List<List<bool>> whoIsAlive;
 
-  Board({
-    this.numberOfRows,
-    this.numberOfColumns,
-    this.boardWidth,
-    this.boardHeight,
-    this.cellWidth,
-    this.cellHeight,
-    this.whoIsAlive,
-  });
+  final Color cellColor;
+
+  Board(
+      {this.numberOfRows,
+      this.numberOfColumns,
+      this.boardWidth,
+      this.boardHeight,
+      this.cellWidth,
+      this.cellHeight,
+      this.whoIsAlive,
+      this.cellColor});
 
   Map<String, dynamic> toJson() {
     return {
@@ -32,18 +34,19 @@ class Board {
       "cellWidth": this.cellWidth,
       "cellHeight": this.cellHeight,
       "whoIsAlive": this.whoIsAlive,
+      "cellColor": this.cellColor,
     };
   }
 
-  Board copy({
-    int numberOfRows,
-    int numberOfColumns,
-    double boardWidth,
-    double boardHeight,
-    double cellWidth,
-    double cellHeight,
-    List<List<bool>> whoIsAlive,
-  }) =>
+  Board copy(
+          {int numberOfRows,
+          int numberOfColumns,
+          double boardWidth,
+          double boardHeight,
+          double cellWidth,
+          double cellHeight,
+          List<List<bool>> whoIsAlive,
+          Color cellColor}) =>
       Board(
         numberOfRows: numberOfRows ?? this.numberOfRows,
         numberOfColumns: numberOfColumns ?? this.numberOfColumns,
@@ -52,21 +55,22 @@ class Board {
         cellWidth: cellWidth ?? this.cellWidth,
         cellHeight: cellHeight ?? this.cellHeight,
         whoIsAlive: whoIsAlive ?? this.whoIsAlive,
+        cellColor: cellColor ?? this.cellColor,
       );
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-          other is Board &&
-              runtimeType == other.runtimeType &&
-              numberOfRows == other.numberOfRows &&
-              numberOfColumns == other.numberOfColumns &&
-              boardWidth == other.boardWidth &&
-              boardHeight == other.boardHeight &&
-              cellWidth == other.cellWidth &&
-              cellHeight == other.cellHeight &&
-              DeepCollectionEquality().equals(whoIsAlive, other.whoIsAlive);
-
+      other is Board &&
+          runtimeType == other.runtimeType &&
+          numberOfRows == other.numberOfRows &&
+          numberOfColumns == other.numberOfColumns &&
+          boardWidth == other.boardWidth &&
+          boardHeight == other.boardHeight &&
+          cellWidth == other.cellWidth &&
+          cellHeight == other.cellHeight &&
+          DeepCollectionEquality().equals(whoIsAlive, other.whoIsAlive) &&
+          cellColor == other.cellColor;
 
   @override
   int get hashCode =>
@@ -76,5 +80,6 @@ class Board {
       boardHeight.hashCode ^
       cellWidth.hashCode ^
       cellHeight.hashCode ^
-      DeepCollectionEquality().hash(whoIsAlive);
+      DeepCollectionEquality().hash(whoIsAlive) ^
+      cellColor.hashCode;
 }
