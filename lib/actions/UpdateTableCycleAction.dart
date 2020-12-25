@@ -57,7 +57,7 @@ class UpdateTableCycleAction extends ReduxAction<AppState> {
       for (var j = column - 1; j <= column + 1; j++) {
         var localRow = (i + state.board.numberOfRows) % state.board.numberOfRows;
         var localColumn = (j + state.board.numberOfColumns) % state.board.numberOfColumns;
-        if (actualBoard.whoIsAlive[localRow][localColumn])
+        if (state.board.whoIsAlive[localRow][localColumn])
           neighboursCount++;
       }
     neighboursCount -= (actualBoard.whoIsAlive[row][column] ? 1 : 0);

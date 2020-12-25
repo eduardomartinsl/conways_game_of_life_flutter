@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 
 import 'appState/AppState.dart';
 
-int numberOfRows = 5;
-int numberOfColumns = 5;
-double boardWidth = 200;
-double boardHeight = 200;
+int numberOfRows = 30;
+int numberOfColumns = 30;
+double boardWidth = 500;
+double boardHeight = 500;
 double cellWidth;
 double cellHeight;
 
@@ -39,7 +39,7 @@ void main() {
 
 List<List<bool>> initializeList() {
   return List.generate(numberOfRows, (i) {
-      return List.generate(numberOfRows, (j) {
+      return List.generate(numberOfColumns, (j) {
         return false;
       });
     });

@@ -13,9 +13,6 @@ class Board {
   final double cellHeight;
   final List<List<bool>> whoIsAlive;
 
-  final List<List<bool>> innerMatrix1;
-  final List<List<bool>> innerMatrix2;
-
   Board({
     this.numberOfRows,
     this.numberOfColumns,
@@ -24,8 +21,6 @@ class Board {
     this.cellWidth,
     this.cellHeight,
     this.whoIsAlive,
-    this.innerMatrix1,
-    this.innerMatrix2,
   });
 
   Map<String, dynamic> toJson() {
@@ -70,9 +65,7 @@ class Board {
               boardHeight == other.boardHeight &&
               cellWidth == other.cellWidth &&
               cellHeight == other.cellHeight &&
-              DeepCollectionEquality().equals(whoIsAlive, other.whoIsAlive) &&
-              DeepCollectionEquality().equals(whoIsAlive, other.innerMatrix1) &&
-              DeepCollectionEquality().equals(whoIsAlive, other.innerMatrix2);
+              DeepCollectionEquality().equals(whoIsAlive, other.whoIsAlive);
 
 
   @override
@@ -83,7 +76,5 @@ class Board {
       boardHeight.hashCode ^
       cellWidth.hashCode ^
       cellHeight.hashCode ^
-      DeepCollectionEquality().hash(whoIsAlive) ^
-      DeepCollectionEquality().hash(innerMatrix1) ^
-      DeepCollectionEquality().hash(innerMatrix2);
+      DeepCollectionEquality().hash(whoIsAlive);
 }

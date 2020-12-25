@@ -31,8 +31,8 @@ class BoardCustomPainter extends CustomPainter {
         if (isAliveMatrix[row][column]) {
           renderCell(
             canvas,
-            row * cellWidth,
-            column * cellHeight,
+            column * cellWidth,
+            row * cellHeight,
             cellWidth,
             cellHeight,
           );
