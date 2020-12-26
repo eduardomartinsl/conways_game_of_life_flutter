@@ -12,18 +12,18 @@ class Board {
   final double cellWidth;
   final double cellHeight;
   final List<List<bool>> whoIsAlive;
-
   final Color cellColor;
 
-  Board(
-      {this.numberOfRows,
-      this.numberOfColumns,
-      this.boardWidth,
-      this.boardHeight,
-      this.cellWidth,
-      this.cellHeight,
-      this.whoIsAlive,
-      this.cellColor});
+  Board({
+    this.numberOfRows,
+    this.numberOfColumns,
+    this.boardWidth,
+    this.boardHeight,
+    this.cellWidth,
+    this.cellHeight,
+    this.whoIsAlive,
+    this.cellColor,
+  });
 
   Map<String, dynamic> toJson() {
     return {
@@ -38,15 +38,16 @@ class Board {
     };
   }
 
-  Board copy(
-          {int numberOfRows,
-          int numberOfColumns,
-          double boardWidth,
-          double boardHeight,
-          double cellWidth,
-          double cellHeight,
-          List<List<bool>> whoIsAlive,
-          Color cellColor}) =>
+  Board copy({
+    int numberOfRows,
+    int numberOfColumns,
+    double boardWidth,
+    double boardHeight,
+    double cellWidth,
+    double cellHeight,
+    List<List<bool>> whoIsAlive,
+    Color cellColor,
+  }) =>
       Board(
         numberOfRows: numberOfRows ?? this.numberOfRows,
         numberOfColumns: numberOfColumns ?? this.numberOfColumns,

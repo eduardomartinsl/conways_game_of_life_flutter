@@ -14,35 +14,51 @@ double cellHeight;
 
 Store<AppState> store;
 
+final black = Color.fromARGB(255, 0, 0, 0);
+final green = Color.fromARGB(255, 31, 191, 36);
+final blue = Color.fromARGB(255, 31, 76, 191);
+final red = Color.fromARGB(255, 204, 22, 22);
+final pink = Color.fromARGB(255, 213, 26, 219);
+
 void main() {
   cellWidth = boardWidth / numberOfRows;
   cellHeight = boardHeight / numberOfColumns;
 
-  var whoIsAlive = initializeList();
-
   Board board = Board(
-    numberOfRows: numberOfRows,
-    numberOfColumns: numberOfColumns,
-    boardWidth: boardWidth,
-    boardHeight: boardHeight,
-    cellWidth: cellWidth,
-    cellHeight: cellHeight,
-    whoIsAlive: whoIsAlive,
-  );
+      numberOfRows: numberOfRows,
+      numberOfColumns: numberOfColumns,
+      boardWidth: boardWidth,
+      boardHeight: boardHeight,
+      cellWidth: cellWidth,
+      cellHeight: cellHeight,
+      whoIsAlive: initializeWhoIsAliveList(),
+      cellColor: black);
 
-  var state = AppState.initialState(board: board, isPaused: true);
+  var predefinedColors = new List<Color>();
+
+  predefinedColors.add(black);
+  predefinedColors.add(green);
+  predefinedColors.add(blue);
+  predefinedColors.add(red);
+  predefinedColors.add(pink);
+
+  var state = AppState.initialState(
+      board: board,
+      isPaused: true,
+      predefinedColors: predefinedColors,
+      selectedColorIndex: 0);
 
   store = Store<AppState>(initialState: state);
 
   runApp(MainPage());
 }
 
-List<List<bool>> initializeList() {
+List<List<bool>> initializeWhoIsAliveList() {
   return List.generate(numberOfRows, (i) {
-      return List.generate(numberOfColumns, (j) {
-        return false;
-      });
+    return List.generate(numberOfColumns, (j) {
+      return false;
     });
+  });
 }
 
 class MainPage extends StatelessWidget {

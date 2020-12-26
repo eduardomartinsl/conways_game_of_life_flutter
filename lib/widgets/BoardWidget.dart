@@ -36,7 +36,7 @@ class BoardWidget extends StatelessWidget {
             cellHeight: board.cellHeight,
             cellWidth: board.cellWidth,
             isAliveMatrix: board.whoIsAlive,
-            cellColor: Colors.black45,
+            cellColor: board.cellColor,
           ),
         ),
       ),
