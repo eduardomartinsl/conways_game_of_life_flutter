@@ -1,6 +1,7 @@
 import 'package:async_redux/async_redux.dart';
 import 'package:conways_game_of_life/conectors/BoardPageConnector.dart';
 import 'package:conways_game_of_life/models/Board.dart';
+import 'package:conways_game_of_life/models/Cell.dart';
 import 'package:flutter/material.dart';
 
 import 'appState/AppState.dart';
@@ -14,6 +15,7 @@ double cellHeight;
 
 Store<AppState> store;
 
+final white = Color.fromARGB(255, 255, 255, 255);
 final black = Color.fromARGB(255, 0, 0, 0);
 final green = Color.fromARGB(255, 31, 191, 36);
 final blue = Color.fromARGB(255, 31, 76, 191);
@@ -31,16 +33,10 @@ void main() {
       boardHeight: boardHeight,
       cellWidth: cellWidth,
       cellHeight: cellHeight,
-      whoIsAlive: initializeWhoIsAliveList(),
+      cells: initializeWhoIsAliveList(),
       cellColor: black);
 
-  var predefinedColors = new List<Color>();
-
-  predefinedColors.add(black);
-  predefinedColors.add(green);
-  predefinedColors.add(blue);
-  predefinedColors.add(red);
-  predefinedColors.add(pink);
+  List<Color> predefinedColors = [black, green, blue, red, pink];
 
   var state = AppState.initialState(
       board: board,
@@ -53,10 +49,10 @@ void main() {
   runApp(MainPage());
 }
 
-List<List<bool>> initializeWhoIsAliveList() {
+List<List<Cell>> initializeWhoIsAliveList() {
   return List.generate(numberOfRows, (i) {
     return List.generate(numberOfColumns, (j) {
-      return false;
+      return Cell(color: white, isAlive: false);
     });
   });
 }

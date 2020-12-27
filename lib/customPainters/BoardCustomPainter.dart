@@ -1,3 +1,4 @@
+import 'package:conways_game_of_life/models/Cell.dart';
 import 'package:flutter/material.dart';
 
 class BoardCustomPainter extends CustomPainter {
@@ -5,16 +6,15 @@ class BoardCustomPainter extends CustomPainter {
   double cellHeight;
   final int numberOfRows;
   final int numberOfColumns;
-  List<List<bool>> isAliveMatrix;
+  List<List<Cell>> cellsMatrix;
   final Color cellColor;
-
 
   BoardCustomPainter({
     this.numberOfRows,
     this.numberOfColumns,
     this.cellWidth,
     this.cellHeight,
-    this.isAliveMatrix,
+    this.cellsMatrix,
     this.cellColor
   });
 
@@ -31,14 +31,14 @@ class BoardCustomPainter extends CustomPainter {
 
     for (var row = 0; row < numberOfRows; row++) {
       for (var column = 0; column < numberOfColumns; column++) {
-        if (isAliveMatrix[row][column]) {
+        if (cellsMatrix[row][column].isAlive) {
           renderCell(
             canvas,
             column * cellWidth,
             row * cellHeight,
             cellWidth,
             cellHeight,
-            cellColor
+            cellsMatrix[row][column].color
           );
         }
       }

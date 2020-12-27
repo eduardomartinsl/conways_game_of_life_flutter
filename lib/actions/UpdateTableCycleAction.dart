@@ -1,9 +1,10 @@
-import 'dart:convert';
-
 import 'package:async_redux/async_redux.dart';
 import 'package:conways_game_of_life/appState/AppState.dart';
 import 'package:conways_game_of_life/models/Board.dart';
+import 'package:conways_game_of_life/models/Cell.dart';
 import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 
 class UpdateTableCycleAction extends ReduxAction<AppState> {
   Board actualBoard;
@@ -12,36 +13,38 @@ class UpdateTableCycleAction extends ReduxAction<AppState> {
   final databaseReference = FirebaseDatabase.instance.reference();
 
   AppState reduce() {
-    if(state.isPaused) return null;
+    if (state.isPaused) return null;
 
-    List<List<bool>> actualTable = [];
+    List<List<Cell>> actualTable = [];
 
-    for (List<bool> row in state.board.whoIsAlive) {
-      var newRow = <bool>[];
-      for (bool element in row) {
+    for (List<Cell> row in state.board.cells) {
+      var newRow = <Cell>[];
+      for (Cell element in row) {
         newRow.add(element);
       }
 
       actualTable.add(newRow);
     }
 
-    actualBoard = state.board.copy(whoIsAlive: actualTable);
-    newBoard = state.board.copy(whoIsAlive: actualTable);
+    actualBoard = state.board.copy(cells: actualTable);
+    newBoard = state.board.copy(cells: actualTable);
 
     for (var row = 0; row < actualBoard.numberOfRows; row++) {
       for (var column = 0; column < actualBoard.numberOfColumns; column++) {
-
         int totalNeighbours = countNeighbours(row, column);
 
-        newBoard.whoIsAlive[row][column] =
-            !actualBoard.whoIsAlive[row][column] && totalNeighbours == 3 ||
-                actualBoard.whoIsAlive[row][column] &&
-                    totalNeighbours >= 2 &&
-                    totalNeighbours <= 3;
+        newBoard.cells[row][column] = Cell(
+          color: Colors.black,
+          isAlive:
+              !actualBoard.cells[row][column].isAlive && totalNeighbours == 3 ||
+                  actualBoard.cells[row][column].isAlive &&
+                      totalNeighbours >= 2 &&
+                      totalNeighbours <= 3,
+        );
       }
     }
 
-    assert(state.board != newBoard );
+    assert(state.board != newBoard);
 
     //todo área de sync com real time database
     // await databaseReference.child("board").set({
@@ -55,12 +58,13 @@ class UpdateTableCycleAction extends ReduxAction<AppState> {
     int neighboursCount = 0;
     for (var i = row - 1; i <= row + 1; i++)
       for (var j = column - 1; j <= column + 1; j++) {
-        var localRow = (i + state.board.numberOfRows) % state.board.numberOfRows;
-        var localColumn = (j + state.board.numberOfColumns) % state.board.numberOfColumns;
-        if (state.board.whoIsAlive[localRow][localColumn])
-          neighboursCount++;
+        var localRow =
+            (i + state.board.numberOfRows) % state.board.numberOfRows;
+        var localColumn =
+            (j + state.board.numberOfColumns) % state.board.numberOfColumns;
+        if (state.board.cells[localRow][localColumn].isAlive) neighboursCount++;
       }
-    neighboursCount -= (actualBoard.whoIsAlive[row][column] ? 1 : 0);
+    neighboursCount -= (actualBoard.cells[row][column].isAlive ? 1 : 0);
     return neighboursCount;
   }
 }

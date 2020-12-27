@@ -1,3 +1,4 @@
+import 'package:conways_game_of_life/models/Cell.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:collection/collection.dart';
@@ -11,7 +12,7 @@ class Board {
   final double boardHeight;
   final double cellWidth;
   final double cellHeight;
-  final List<List<bool>> whoIsAlive;
+  final List<List<Cell>> cells;
   final Color cellColor;
 
   Board({
@@ -21,7 +22,7 @@ class Board {
     this.boardHeight,
     this.cellWidth,
     this.cellHeight,
-    this.whoIsAlive,
+    this.cells,
     this.cellColor,
   });
 
@@ -33,7 +34,7 @@ class Board {
       "boardHeight": this.boardHeight,
       "cellWidth": this.cellWidth,
       "cellHeight": this.cellHeight,
-      "whoIsAlive": this.whoIsAlive,
+      "cells": this.cells,
       "cellColor": this.cellColor,
     };
   }
@@ -45,7 +46,7 @@ class Board {
     double boardHeight,
     double cellWidth,
     double cellHeight,
-    List<List<bool>> whoIsAlive,
+    List<List<Cell>> cells,
     Color cellColor,
   }) =>
       Board(
@@ -55,7 +56,7 @@ class Board {
         boardHeight: boardHeight ?? this.boardHeight,
         cellWidth: cellWidth ?? this.cellWidth,
         cellHeight: cellHeight ?? this.cellHeight,
-        whoIsAlive: whoIsAlive ?? this.whoIsAlive,
+        cells: cells ?? this.cells,
         cellColor: cellColor ?? this.cellColor,
       );
 
@@ -70,7 +71,8 @@ class Board {
           boardHeight == other.boardHeight &&
           cellWidth == other.cellWidth &&
           cellHeight == other.cellHeight &&
-          DeepCollectionEquality().equals(whoIsAlive, other.whoIsAlive) &&
+          cells == other.cells &&
+          // DeepCollectionEquality().equals(cells, other.cells) &&
           cellColor == other.cellColor;
 
   @override
@@ -81,6 +83,7 @@ class Board {
       boardHeight.hashCode ^
       cellWidth.hashCode ^
       cellHeight.hashCode ^
-      DeepCollectionEquality().hash(whoIsAlive) ^
+      cells.hashCode ^
+      // DeepCollectionEquality().hash(cells) ^
       cellColor.hashCode;
 }

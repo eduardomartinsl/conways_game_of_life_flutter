@@ -31,8 +31,12 @@ class AppState {
         predefinedColors: predefinedColors ?? this.predefinedColors,
       );
 
-  static AppState initialState(
-      {board, isPaused, predefinedColors, selectedColorIndex}) {
+  static AppState initialState({
+    board,
+    isPaused,
+    predefinedColors,
+    selectedColorIndex,
+  }) {
     return AppState(
       board: board,
       isPaused: isPaused,
