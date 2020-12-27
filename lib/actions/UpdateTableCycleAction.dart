@@ -5,6 +5,7 @@ import 'package:conways_game_of_life/models/Cell.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:tinycolor/tinycolor.dart';
 
 class UpdateTableCycleAction extends ReduxAction<AppState> {
   Board actualBoard;
@@ -32,9 +33,11 @@ class UpdateTableCycleAction extends ReduxAction<AppState> {
     for (var row = 0; row < actualBoard.numberOfRows; row++) {
       for (var column = 0; column < actualBoard.numberOfColumns; column++) {
         int totalNeighbours = countNeighbours(row, column);
+        Color resultantColorFromNeighbours =
+            calculateResultantColor(row, column);
 
         newBoard.cells[row][column] = Cell(
-          color: Colors.black,
+          color: resultantColorFromNeighbours,
           isAlive:
               !actualBoard.cells[row][column].isAlive && totalNeighbours == 3 ||
                   actualBoard.cells[row][column].isAlive &&
@@ -66,5 +69,26 @@ class UpdateTableCycleAction extends ReduxAction<AppState> {
       }
     neighboursCount -= (actualBoard.cells[row][column].isAlive ? 1 : 0);
     return neighboursCount;
+  }
+
+  Color calculateResultantColor(int row, int column) {
+    Color resultantColor;
+    for (var i = row - 1; i <= row + 1; i++)
+      for (var j = column - 1; j <= column + 1; j++) {
+        var localRow =
+            (i + state.board.numberOfRows) % state.board.numberOfRows;
+        var localColumn =
+            (j + state.board.numberOfColumns) % state.board.numberOfColumns;
+        if (state.board.cells[localRow][localColumn].isAlive) {
+          // resultantColor = state.board.cells[row][column].color
+          //     .mix(state.board.cells[localRow][localColumn].color, 50);
+          resultantColor =
+              TinyColor(state.board.cells[localRow][localColumn].color)
+                  .mix(input: state.board.cellColor, amount: 50)
+                  .color;
+        }
+      }
+    if (resultantColor == null) return Colors.white;
+    return resultantColor;
   }
 }
