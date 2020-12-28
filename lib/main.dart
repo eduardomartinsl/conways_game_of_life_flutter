@@ -26,6 +26,8 @@ void main() {
   cellWidth = boardWidth / numberOfRows;
   cellHeight = boardHeight / numberOfColumns;
 
+  List<Color> predefinedColors = [black, green, blue, red, pink];
+
   Board board = Board(
       numberOfRows: numberOfRows,
       numberOfColumns: numberOfColumns,
@@ -33,10 +35,8 @@ void main() {
       boardHeight: boardHeight,
       cellWidth: cellWidth,
       cellHeight: cellHeight,
-      cells: initializeWhoIsAliveList(),
-      cellColor: black);
-
-  List<Color> predefinedColors = [black, green, blue, red, pink];
+      cells: initializeCellsList(),
+      cellColor: predefinedColors[0]);
 
   var state = AppState.initialState(
       board: board,
@@ -49,7 +49,7 @@ void main() {
   runApp(MainPage());
 }
 
-List<List<Cell>> initializeWhoIsAliveList() {
+List<List<Cell>> initializeCellsList() {
   return List.generate(numberOfRows, (i) {
     return List.generate(numberOfColumns, (j) {
       return Cell(color: white, isAlive: false);

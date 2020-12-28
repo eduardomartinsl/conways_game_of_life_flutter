@@ -6,15 +6,15 @@ class ChangeIsPausedAction extends ReduxAction<AppState> {
   @override
   AppState reduce() {
     if (!state.isPaused) {
-      var indexColor = state.selectedColorIndex;
-      indexColor += 1;
-      if (indexColor >= state.predefinedColors.length) indexColor = 0;
+      var colorIndex = state.selectedColorIndex;
+      colorIndex += 1;
+      if (colorIndex >= state.predefinedColors.length) colorIndex = 0;
       Board board =
-          state.board.copy(cellColor: state.predefinedColors[indexColor]);
+          state.board.copy(cellColor: state.predefinedColors[colorIndex]);
       return state.copy(
         isPaused: !state.isPaused,
         board: board,
-        selectedColorIndex: indexColor,
+        selectedColorIndex: colorIndex,
       );
     }
 
