@@ -5,7 +5,8 @@ import 'package:conways_game_of_life/models/Cell.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:tinycolor/tinycolor.dart';
+import 'package:flutter_color/flutter_color.dart';
+
 
 class UpdateTableCycleAction extends ReduxAction<AppState> {
   Board actualBoard;
@@ -77,15 +78,15 @@ class UpdateTableCycleAction extends ReduxAction<AppState> {
       for (var j = column - 1; j <= column + 1; j++) {
         var localRow =
             (i + state.board.numberOfRows) % state.board.numberOfRows;
+
         var localColumn =
             (j + state.board.numberOfColumns) % state.board.numberOfColumns;
+
         if (state.board.cells[localRow][localColumn].isAlive) {
-          // resultantColor = state.board.cells[row][column].color
-          //     .mix(state.board.cells[localRow][localColumn].color, 50);
-          resultantColor =
-              TinyColor(state.board.cells[localRow][localColumn].color)
-                  .mix(input: state.board.cellColor, amount: 50)
-                  .color;
+          var defaultCellColor = actualBoard.cells[row][column].color;
+          var neighbourColor = actualBoard.cells[localRow][localColumn].color;
+          resultantColor = defaultCellColor.mix(neighbourColor, .50);
+
         }
       }
     if (resultantColor == null) return Colors.white;
